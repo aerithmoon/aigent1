@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <title>ARIA — AI Agent</title>
+  <title>AERIA — AI Agent</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,400;12..96,500;12..96,600;12..96,700&family=JetBrains+Mono:wght@400;500&family=Cinzel+Decorative:wght@400;700&display=swap" rel="stylesheet" />
@@ -575,10 +575,11 @@
     .fc-del:hover{color:var(--danger);}
 
     .input-box {
-      display: flex; align-items: flex-end; gap: 6px;
+      display: flex; align-items: center; gap: 6px;
       background: var(--s1); border: 1px solid var(--border2);
-      border-radius: var(--r); padding: 9px 9px 9px 14px;
+      border-radius: var(--r); padding: 10px 10px 10px 16px;
       transition: border-color var(--t), box-shadow var(--t);
+      min-height: 52px;
     }
     .input-box:focus-within {
       border-color: rgba(124,143,255,.4);
@@ -587,8 +588,9 @@
 
     #msgInput {
       flex: 1; outline: none; background: transparent; color: var(--text);
-      font-family: var(--font); font-size: 15px; line-height: 1.6;
-      min-height: 22px; max-height: 120px; overflow-y: auto; word-break: break-word;
+      font-family: var(--font); font-size: 15px; line-height: 1.5;
+      min-height: 24px; max-height: 120px; overflow-y: auto; word-break: break-word;
+      align-self: center;
     }
     #msgInput:empty::before { content: attr(data-placeholder); color: var(--muted); pointer-events: none; }
 
@@ -597,7 +599,7 @@
     .ico-btn:hover{background:var(--s3);color:var(--dim);}
 
     #sendBtn {
-      width: 36px; height: 36px; border-radius: 10px; border: none;
+      width: 32px; height: 32px; border-radius: 8px; border: none;
       background: linear-gradient(135deg, var(--accent), var(--lilac));
       color: #fff; cursor: pointer;
       display: flex; align-items: center; justify-content: center;
@@ -657,42 +659,6 @@
 </head>
 <body>
 
-<!-- ════════ LOGIN ════════ -->
-<div id="loginScreen">
-  <div class="login-card">
-    <div class="login-glyph">✦</div>
-    <div class="login-brand">ARIA</div>
-    <p class="login-sub">Masuk untuk melanjutkan</p>
-
-    <div class="lf">
-      <label class="ll" for="li-u">Username</label>
-      <div class="li-wrap">
-        <input class="li" type="text" id="li-u" placeholder="username"
-               autocomplete="username"
-               onkeydown="if(event.key==='Enter')document.getElementById('li-p').focus()" />
-      </div>
-    </div>
-
-    <div class="lf">
-      <label class="ll" for="li-p">Password</label>
-      <div class="li-wrap">
-        <input class="li" type="password" id="li-p" placeholder="••••••••"
-               autocomplete="current-password"
-               onkeydown="if(event.key==='Enter')doLogin()" />
-        <button class="show-pw" onclick="togglePw()" id="pwEye" tabindex="-1" type="button">
-          <svg id="eyeIcon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
-            <circle cx="12" cy="12" r="3"/>
-          </svg>
-        </button>
-      </div>
-    </div>
-
-    <div class="l-err" id="loginErr">Username atau password salah.</div>
-    <button class="l-btn" id="loginBtn" onclick="doLogin()">Masuk</button>
-  </div>
-</div>
-
 <!-- ════════ APP ════════ -->
 <div id="app">
 
@@ -700,7 +666,7 @@
     <div class="sb-head">
       <div class="logo">
         <div class="logo-icon" onclick="goHome()" title="Kembali ke Home">AI</div>
-        <span class="logo-name" onclick="goHome()">ARIA</span>
+        <span class="logo-name" onclick="goHome()">AERIA</span>
         <span class="logo-badge">v3.0</span>
       </div>
       <button id="newChatBtn" onclick="newSession()">
@@ -777,7 +743,7 @@
         </svg>
       </button>
 
-      <span id="ariaHeaderLogo" onclick="goHome()" title="Kembali ke Home">ARIA</span>
+      <span id="ariaHeaderLogo" onclick="goHome()" title="Kembali ke Home">AERIA</span>
 
       <div id="sessionTitle" contenteditable="true" spellcheck="false"
            onblur="renameSession(this.textContent)">New Chat</div>
@@ -809,7 +775,7 @@
       <div id="filePreview"></div>
       <div class="input-box">
         <div id="msgInput" contenteditable="true"
-             data-placeholder="Tanya ARIA…"
+             data-placeholder="Tanya AERIA…"
              onkeydown="onKey(event)" oninput="onInput()"></div>
         <div class="input-icons">
           <button class="ico-btn" onclick="document.getElementById('fileIn').click()" title="Lampirkan file">
@@ -825,7 +791,7 @@
           </button>
         </div>
       </div>
-      <p class="input-hint">ARIA v3.0 · Gemini · Memory enabled</p>
+      <p class="input-hint">AERIA v3.0 · Gemini · Memory enabled</p>
     </div>
   </main>
 </div>
@@ -841,7 +807,7 @@
 // ════════════════════════════════════
 //  ★ ISI URL GAS LO DI SINI
 // ════════════════════════════════════
-const GAS_URL = 'https://script.google.com/macros/s/AKfycbzPuH6i9BFqDEGTbGvyQ6tDARwU22yf5mR7W-Uk6eWG5ALgS2mAVOAgwCDAXd54kcu_/exec';
+const GAS_URL = 'PASTE_URL_GAS_LO_DI_SINI';
 
 // ════════════════════════════════════
 //  🔐 AUTH
@@ -864,9 +830,7 @@ const S = {
 //  BOOT — refresh = new chat, lama tetap tersimpan
 // ════════════════════════════════════
 (function boot() {
-  if (sessionStorage.getItem('aria_auth') === '1') {
-    showApp();
-  }
+  showApp();
 })();
 
 // ════════════════════════════════════
@@ -906,7 +870,6 @@ async function doLogin() {
 }
 
 function showApp() {
-  document.getElementById('loginScreen').classList.add('hide');
   document.getElementById('app').classList.add('visible');
   initApp();
 }
@@ -1099,8 +1062,8 @@ function renderMsgs() {
 function welcomeHtml() {
   return `<div id="welcome">
     <div class="welcome-orb"><span class="welcome-orb-text">A</span></div>
-    <h1 class="welcome-title">Halo, aku ARIA</h1>
-    <p class="welcome-sub">AI Agent premium siap bantu riset, coding, analisis, brainstorming, dan apapun yang lo butuhkan.</p>
+    <h1 class="welcome-title">Hai, Aeria di sini! ✨</h1>
+    <p class="welcome-sub">Asisten AI yang siap menemani kegiatanmu sepanjang hari. Kamu lagi butuh bantuan apa hari ini?</p>
     <div class="chips">
       <button class="chip" onclick="quickSend('Jelaskan machine learning secara sederhana')">🧠 Machine Learning</button>
       <button class="chip" onclick="quickSend('Bantu brainstorming ide startup tech inovatif')">💡 Ide Startup</button>
@@ -1235,9 +1198,9 @@ function confirmClearAll() {
 function exportChat() {
   const s = getCur();
   if (!s || !s.messages.length) { toast('⚠ Tidak ada chat'); return; }
-  let txt = `ARIA Chat Export\nSesi: ${s.name}\nTanggal: ${new Date().toLocaleString('id-ID')}\n${'═'.repeat(50)}\n\n`;
+  let txt = `AERIA Chat Export\nSesi: ${s.name}\nTanggal: ${new Date().toLocaleString('id-ID')}\n${'═'.repeat(50)}\n\n`;
   s.messages.forEach(m => {
-    const who  = m.role === 'user' ? 'Kamu' : 'ARIA';
+    const who  = m.role === 'user' ? 'Kamu' : 'AERIA';
     const time = new Date(m.ts).toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
     txt += `[${time}] ${who}:\n${m.content}\n\n${'─'.repeat(40)}\n\n`;
   });
@@ -1362,7 +1325,7 @@ function showTyping() {
   if (document.getElementById('tr')) return;
   const el = document.createElement('div');
   el.id = 'tr'; el.className = 'typing-row';
-  el.innerHTML = `<div class="typing-dots"><div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div></div><span class="typing-label">ARIA sedang berpikir…</span>`;
+  el.innerHTML = `<div class="typing-dots"><div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div></div><span class="typing-label">AERIA sedang berpikir…</span>`;
   document.getElementById('messages').appendChild(el); scrollBot();
 }
 function hideTyping() { document.getElementById('tr')?.remove(); }
